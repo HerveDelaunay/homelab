@@ -3,5 +3,5 @@ kind: Kustomization
 resources:
   - renovate-token.yaml
   - configmap.yaml
-  - conjob.yaml
+  - cronjob.yaml
   - namespace.yaml
