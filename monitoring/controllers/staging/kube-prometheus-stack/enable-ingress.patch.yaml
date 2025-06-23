@@ -11,4 +11,7 @@ spec:
         ingressClassName: traefik
         hosts: ['grafana-staging.hervedelaunay.com']
         path: /
-
+        tls:
+          secretName: grafana-tls-cert
+          hosts:
+          - grafana-staging.hervedelaunay.com
