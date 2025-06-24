@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: audiobookshelf
+  name: audiobookshelf
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: audiobookshelf
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: audiobookshelf
+    spec:
+      containers:
+      - image: ghcr.io/advplyr/audiobookshelf:latest
+        name: audiobookshelf
+        env:
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              name: audiobookshelf-env
+              key: PORT
+        - name: TZ
+          valueFrom:
+            configMapKeyRef:
+              name: audiobookshelf-env
+              key: TZ
+        volumeMounts:
+        - mountPath: "/audiobooks"
+          name: audiobooks-pv
+        - mountPath: "/podcasts"
+          name: podcasts-pv
+        - mountPath: "/config"
+          name: config-pv
+        - mountPath: "/metadata"
+          name: metadata-pv
+      volumes:
+          - name: audiobooks-pv
+            persistentVolumeClaim:
+              claimName: audiobooks-pvc
+          - name: podcasts-pv
+            persistentVolumeClaim:
+              claimName: podcasts-pvc
+          - name: config-pv
+            persistentVolumeClaim:
+              claimName: config-pvc
+          - name: metadata-pv
+            persistentVolumeClaim:
+              claimName: metadata-pvc
