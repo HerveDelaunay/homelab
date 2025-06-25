@@ -19,7 +19,7 @@ spec:
         app: audiobookshelf
 
     spec:
-      securitycontext:
+      securityContext:
         runasuser: 1000
         runasgroup: 1000
         fsgroup: 1000
